@@ -1,4 +1,4 @@
-module shiphtmx
+module github.com/pnpancholi/ship-htmx-app
 
 go 1.25.1
 

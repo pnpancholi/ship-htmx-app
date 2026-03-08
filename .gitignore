@@ -1,0 +1,13 @@
+# binary
+ship-htmx
+
+# mac
+.DS_Store
+
+# env files
+.env
+.env.local
+
+# editor
+.vscode/
+.idea/
