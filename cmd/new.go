@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/charmbracelet/huh"
 	"github.com/spf13/cobra"
@@ -81,9 +82,10 @@ func createProjectStructure(projectName string) error {
 	}
 
 	files := map[string]string{
-		projectName + "/package.json":          makePackageJSON(projectName),
-		projectName + "/server.js":             setUpServer(),
-		projectName + "/src/public/indes.html": makeIndexHTML(projectName),
+		projectName + "/package.json":             makePackageJSON(projectName),
+		projectName + "/server.js":                setUpServer(),
+		projectName + "/src/public/indes.html":    makeIndexHTML(projectName),
+		projectName + "/src/public/css/style.css": "",
 	}
 
 	for path, content := range files {
@@ -162,6 +164,23 @@ func cssLink(framwork string) string {
 	default:
 		return `<link rel="stylesheet" href="/css/style.css">`
 	}
+}
+
+func applyCSSFramework(projectName string, framework string) error {
+	path := projectName + "/src/public/index.html"
+
+	content, err := os.ReadFile(path)
+
+	if err != nil {
+		fmt.Errorf("Failed to read file : index.html")
+	}
+
+	updatedContent := strings.Replace(string(content), "</head>", cssLink(framework)+"\n</head>", 1)
+
+	if err := os.WriteFile(path, []byte(updatedContent), 0644); err != nil {
+		fmt.Errorf("Failed to update index.html")
+	}
+	return nil
 }
 
 func init() {
