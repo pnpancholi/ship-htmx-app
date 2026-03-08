@@ -61,6 +61,10 @@ func scaffoldProject(projectName string, opts ProjectOptions) error {
 	if err := createProjectStructure(projectName); err != nil {
 		fmt.Errorf("[ship-htmx-app]: failed to create project structure", err)
 	}
+
+	if err := applyCSSFramework(projectName, opts.CSSFramework); err != nil {
+		fmt.Errorf("[ship-htmx-app]: failed to add CSS framwork", err)
+	}
 	return nil
 }
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"shiphtmx/cmd"
+	"github.com/pnpancholi/ship-htmx-app/cmd"
 )
 
 func main() {
